@@ -1,19 +1,19 @@
 version: '3.7'
 services:
     app:
-        image: test
+        image: rust_develop_env
         build:
             context: .
             dockerfile: Dockerfile
             target: develop_env
         volumes:
             - .:/usr/src/app
-            - /usr/src/app/target/
             - ~/.vim:/root/.vim:ro
         ports:
             - "8000:8000"
         networks:
             - rust
+        user: "1000:1000"
         command: ./installandrun.sh
 networks:
     rust:
