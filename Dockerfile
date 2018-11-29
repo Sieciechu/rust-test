@@ -20,7 +20,7 @@ RUN ["cargo", "build", "--release"]
 FROM rust:${RUST_VERSION} as prod
 ARG VCS_REF
 LABEL org.label-schema.vcs-ref=$VCS_REF \
-        org.label-schema.vcs-url="https://github.com/Sieciechu/rust-test"
+      org.label-schema.vcs-url="https://github.com/Sieciechu/rust-test"
 
 COPY --from=builder /usr/src/app/target/release/app /usr/src/app/app
 EXPOSE 8000
