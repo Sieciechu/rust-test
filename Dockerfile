@@ -8,7 +8,6 @@ RUN apt-get update -y && apt-get install -y \
     vim \
     curl
 
-RUN rustup override set nightly
 WORKDIR /usr/src/app/
 
 EXPOSE 8000
