@@ -1,43 +1,40 @@
-extern crate rand;
+#[macro_use]
+extern crate text_io;
 
-use std::io;
-use rand::Rng;
-use std::cmp::Ordering;
+#[derive(Debug)]
+struct Rectangle {
+    width: u32,
+    height: u32,
+}
 
 fn main() {
-    const MIN: i32 = 1;
-    const MAX: i32 = 10;
-    
-    println!("Guess the number from {} to {}.", MIN, MAX);
+//    test1();
+    test2();
+}
+fn double_width(rectangle: &mut Rectangle) {
+    rectangle.width = 2*rectangle.width;
+}
 
-    let secret_number = rand::thread_rng().gen_range(MIN,MAX+1);
-    println!("The secret number is {}\n\n", secret_number);
+fn area_from_rectangle(rectangle: &Rectangle) -> u32 {
+    rectangle.width * rectangle.height
+}
 
-    loop {
-        println!("Input the guess.");
-        let mut guess = String::new();
-        
-        io::stdin().read_line(&mut guess)
-            .expect("Failed to read line");
+fn area_from_tuple(dimensions: (u32, u32)) -> u32 {
+    dimensions.0 * dimensions.1
+}
 
-        let guess: i32 = match guess.trim().parse() {
-            Ok(num) => num,
-            Err(_) => {
-                println!("Please type a number");
-                continue;
-            }
-        };
-        
-        println!("You guessed: {}", guess);
+fn test2() {
+    let mut rectangle = Rectangle { width: 0, height: 0 };
+    println!("Please write rectangle width and height (followed by space)");
+    scan!("{} {}", rectangle.width, rectangle.height);
 
-        match guess.cmp(&secret_number) {
-            Ordering::Less => println!("Too small"),
-            Ordering::Greater => println!("Too big"),
-            Ordering::Equal => {
-                println!("You win!");
-                break;
-            }
+    double_width(&mut rectangle);
+    println!("doubled with of rectangle. Now it's {:#?}", rectangle);
 
-        }
-    }
+    println!("Rect square area is {}", area_from_rectangle(&rectangle));
+}
+
+fn test1() {
+    let rect2: (u32, u32) = (10, 10);
+    println!("Rect1 square area is {}", area_from_tuple(rect2));
 }

@@ -4,4 +4,4 @@ version="0.1.0"
 authors = ["Sieciech <wojciech.mocek@o2.pl>"]
 
 [dependencies]
-rand = "^0"
+text_io = "^0"
