@@ -1,5 +1,5 @@
 # Description
-Rust test. Simple number guessing game.
+Rust test. Just learning rust.
 
 # Github
 
