@@ -5,3 +5,4 @@ authors = ["Sieciech <wojciech.mocek@o2.pl>"]
 
 [dependencies]
 text_io = "^0"
+uuid = { version = "^0", features = ["v4"] }
