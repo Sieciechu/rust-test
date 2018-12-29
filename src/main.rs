@@ -1,55 +1,62 @@
-#[macro_use]
-extern crate uuid;
 
-mod sound;
-
-mod performance_group {
-    use crate::sound::instrument;
-
-    pub fn clarinet_trio() {
-        instrument::clarinet();
-        instrument::clarinet();
-        instrument::clarinet();
-    }
+#[derive(Debug)]
+enum SpreadsheetCell {
+    Int(i32),
+    Float(f64),
+    Text(String),
 }
 
-mod plant {
-
-    #[derive(Debug)]
-    pub struct Vegetable {
-        pub name: String,
-        id: uuid::Uuid,
-    }
-
-    impl Vegetable {
-        pub fn new(name: String) -> Vegetable {
-            Vegetable {
-                name,
-                id: uuid::Uuid::new_v4(),
-            }
-        }
-
-        pub fn get_id(self : &Vegetable) -> String {
-            self.id.to_string()
-        }
-    }
-}
-
-use std::collections::HashMap;
-use std::io;
-use std::fmt;
 
 fn main() {
+    let mut v1: Vec<i32> = Vec::new();
 
-    crate::sound::instrument::clarinet();
-    sound::instrument::clarinet();
+    v1.push(12);
 
-    let tomato = plant::Vegetable::new(String::from("tomato"));
-    eprintln!("tomato = {:#?}", tomato.get_id());
-    eprintln!("tomato.name = {:?}", tomato.name);
+    let v2 = vec![1,2,3];
 
-    performance_group::clarinet_trio();
+    let mut ar = [v1, v2];
 
-    let map: HashMap<String, i32> = HashMap::new();
+    ar[0].push(12);
 
+
+    let v3 = vec![10,20,30,40];
+    let mut third: &i32 = &v3[2];
+
+    let x = v3[1];
+    eprintln!("x = {:#?}", x);
+
+    third = &23;
+
+
+    let index = 20;
+
+    match v3.get(index) {
+        Some(_) => println!("Reachable element at index {}", index),
+        None => println!("Unreachable element at index {}", index)
+    }
+
+    eprintln!("v3 = {:?}", v3);
+    eprintln!("third = {:#?}", third);
+
+
+    for i in &v3 {
+        eprintln!("i = {:#?}", i);
+    }
+
+    let mut v4 = vec![100, 32, 57];
+    for i in &mut v4 {
+        *i += 50;
+    }
+    eprintln!("v4 after loop is = {:#?}", v4);
+
+    let mut row = vec![
+        SpreadsheetCell::Int(200),
+        SpreadsheetCell::Float(300.12),
+        SpreadsheetCell::Text("blue".to_string()),
+    ];
+    
+    let cell = SpreadsheetCell::Int(201);
+    row.push(cell);
+
+    eprintln!("row is: {:?}", row);
 }
