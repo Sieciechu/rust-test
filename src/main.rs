@@ -2,7 +2,6 @@
 mod modules;
 
 fn main() {
-    use modules::strings;
-
-    strings::run();
+    modules::hashmaps::run();
 }
+
