@@ -1,0 +1,3 @@
+read from file test line1
+some line2
+some line3

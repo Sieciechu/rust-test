@@ -2,6 +2,6 @@
 mod modules;
 
 fn main() {
-    modules::hashmaps::run();
+    modules::errors::run();
 }
 
