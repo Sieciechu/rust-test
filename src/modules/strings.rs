@@ -20,4 +20,13 @@ pub fn run() {
     for (index, byte) in "नमस्ते".bytes().enumerate() {
         eprintln!("byte[{}] = {:#?}", index, byte);
     }
+    
+    let mut name = "Karol".to_string();
+    eprintln!("name before change = {:#?}", name);
+    change_name(&mut name);
+    eprintln!("changed name = {:#?}", name);
+}
+
+fn change_name(name: &mut String){
+    *name = String::from("New name");
 }
