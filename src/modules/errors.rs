@@ -6,8 +6,9 @@ pub fn run(){
     let text = read_username_from_file("hello.txt").unwrap();
     eprintln!("read text from file:\n\"{}\"", text);
 
-    let text = read_username_from_file("not_existing_file").unwrap(); // this causes panic
-
+    // let text = read_username_from_file("not_existing_file").unwrap(); // this causes panic
+    let x = read_username_from_file3("hello.txt");
+    eprintln!("x = {:#?}", x.unwrap());
 }
 
 fn read_username_from_file(filename: &str) -> Result<String, io::Error> {
@@ -23,4 +24,14 @@ fn read_username_from_file(filename: &str) -> Result<String, io::Error> {
         Ok(_) => Ok(s),
         Err(e) => Err(e),
     }
+}
+
+fn read_username_from_file2(filename: &str) -> Result<String, io::Error> {
+    let mut s= String::new();
+    File::open(filename)?.read_to_string(&mut s)?;
+    Result::Ok(s)
+}
+
+fn read_username_from_file3(filename: &str) -> Result<String, io::Error> {
+    std::fs::read_to_string(filename)
 }

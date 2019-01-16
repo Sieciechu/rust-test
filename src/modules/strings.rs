@@ -1,5 +1,10 @@
 
 pub fn run() {
+    let val: String = String::from("Hello, World!");
+    printer(&val);
+    printer(&val);
+
+
     let s1 = String::from("john");
     let s2 = String::from("smith");
     let s3 = "tall".to_string();
@@ -25,8 +30,20 @@ pub fn run() {
     eprintln!("name before change = {:#?}", name);
     change_name(&mut name);
     eprintln!("changed name = {:#?}", name);
+    let mut name2 = "Zenon".to_string();
+    name2 = change_name2(name2);
+    eprintln!("name2 = {:#?}", name2);
 }
 
 fn change_name(name: &mut String){
     *name = String::from("New name");
+}
+
+fn change_name2(mut name: String) -> String {
+    name = String::from("New name change name2");
+    name
+}
+
+fn printer(val: &String) {
+    println!("The value is: {}", val);
 }
