@@ -1,8 +1,8 @@
 [package]
-name="app"
+name="rust-test1"
 version="0.1.0"
 authors = ["Sieciech <wojciech.mocek@o2.pl>"]
 
 [dependencies]
-text_io = "^0"
-uuid = { version = "^0", features = ["v4"] }
+regex = "1.1.0"
+lazy_static = "1.2.0"
