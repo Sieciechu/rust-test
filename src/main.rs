@@ -4,6 +4,7 @@ extern crate regex;
 
 use regex::Captures;
 use regex::Regex;
+use std::thread;
 
 fn main() {
     let start = std::time::SystemTime::now();
@@ -14,8 +15,20 @@ Został po raz pierwszy użyty w XV w. przez nieznanego drukarza do wypełnienia
 ";
     let mut result: String = String::new();
 
-    for _i in 0..300000 {
-        result = run(text);
+    let mut handles = vec![];
+    for _ in 0..4 {
+        let handle = thread::spawn(move || {
+            let mut result = String::new();
+            for _ in 0..75000 {
+                result = run(text);
+            }
+            result
+        });
+        handles.push(handle);
+    }
+
+    for handle in handles {
+        result = handle.join().unwrap();
     }
 
     let end = std::time::SystemTime::now();
@@ -40,25 +53,25 @@ fn run(text: &str) -> String {
     return replace_tag_with_twig_braces(&result);
 }
 
-fn replace_tag_with_twig_block(searchedBlockName: &str, text: &str) -> String {
-    let opening = format!("{{% block {} %}}", searchedBlockName);
+fn replace_tag_with_twig_block(searched_block_name: &str, text: &str) -> String {
+    let opening = format!("{{% block {} %}}", searched_block_name);
 
     let result = text
         .to_owned()
         .clone()
-        .replace(&format!("[{}]", searchedBlockName), &opening)
-        .replace(&format!("[/{}]", searchedBlockName), "{% blockend %}");
+        .replace(&format!("[{}]", searched_block_name), &opening)
+        .replace(&format!("[/{}]", searched_block_name), "{% endblock %}");
 
     result
 
-    //  Below was 1st solution, but it makes running from 2s to ~150s for 300000 iterations
-    //    let regex= format!(r"(?ism)(\[{tag}\])(?P<inner>.*)(\[/{tag}\])", tag=searchedBlockName);
-    //    let re = Regex::new(&regex).unwrap();
-    //    let result = re.replace(text, |caps: &Captures| {
-    //        format!("{}{}{{% blockend %}}", opening, &caps["inner"])
-    //    });
+    ////      Below was 1st solution, but it makes running from 2s to ~150s for 300000 iterations
+    //        let regex= format!(r"(?ism)(\[{tag}\])(?P<inner>.*)(\[/{tag}\])", tag=searched_block_name);
+    //        let re = Regex::new(&regex).unwrap();
+    //        let result = re.replace(text, |caps: &Captures| {
+    //            format!("{}{}{{% blockend %}}", opening, &caps["inner"])
+    //        });
     //
-    //    result.to_string()
+    //        result.to_string()
 }
 
 fn replace_tag_with_twig_braces(text: &str) -> String {
