@@ -6,6 +6,9 @@ use regex::Captures;
 use regex::Regex;
 use std::thread;
 
+const NUMBER_OF_ITERATIONS: i32 = 300000;
+const THREADS_NUMBER:i32 = 4;
+
 fn main() {
     let start = std::time::SystemTime::now();
 
@@ -16,10 +19,10 @@ Został po raz pierwszy użyty w XV w. przez nieznanego drukarza do wypełnienia
     let mut result: String = String::new();
 
     let mut handles = vec![];
-    for _ in 0..4 {
+    for _ in 0..THREADS_NUMBER {
         let handle = thread::spawn(move || {
             let mut result = String::new();
-            for _ in 0..75000 {
+            for _ in 0..NUMBER_OF_ITERATIONS/ THREADS_NUMBER {
                 result = run(text);
             }
             result
