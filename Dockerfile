@@ -2,7 +2,7 @@
 
 # ------------------------------  env stage  ------------------------------
 #
-ARG RUST_VERSION=1.30-slim
+ARG RUST_VERSION=1.32-slim
 ARG VCS_REF
 ARG BUILD_DATE
 
