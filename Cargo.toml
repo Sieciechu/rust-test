@@ -6,3 +6,9 @@ authors = ["Sieciech <wojciech.mocek@o2.pl>"]
 [dependencies]
 regex = "1.1.0"
 lazy_static = "1.2.0"
+
+[profile.dev]
+opt-level = 0
+
+[profile.release]
+opt-level = 3
