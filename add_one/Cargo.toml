@@ -1,0 +1,7 @@
+[package]
+name = "add_one"
+version = "0.1.0"
+authors = ["Sieciech <wojciech.mocek@o2.pl>"]
+edition = "2018"
+
+[dependencies]

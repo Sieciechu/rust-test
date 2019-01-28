@@ -1,2 +1,13 @@
+[profile.dev]
+codegen-units = 4
+opt-level = 0
 
+[profile.release]
+opt-level = 3
+codegen-units = 4
 
+[workspace]
+members = [
+    "adder",
+    "add_one",
+]
