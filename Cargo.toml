@@ -1,8 +1,14 @@
 [package]
-name="app"
+name="rust-test1"
 version="0.1.0"
 authors = ["Sieciech <wojciech.mocek@o2.pl>"]
 
 [dependencies]
 text_io = "^0"
 uuid = { version = "^0", features = ["v4"] }
+
+[profile.dev]
+opt-level = 0
+
+[profile.release]
+opt-level = 3
