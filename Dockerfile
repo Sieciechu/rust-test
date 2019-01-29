@@ -5,6 +5,7 @@
 ARG RUST_VERSION=1.32-slim
 ARG VCS_REF
 ARG BUILD_DATE
+ARG BINARY_NAME
 
 FROM rust:${RUST_VERSION} as develop_env
 RUN apt-get update -y && apt-get install -y \
@@ -26,13 +27,15 @@ RUN ["cargo", "build", "--release"]
 #
 FROM rust:${RUST_VERSION} as prod
 
-COPY --from=builder /usr/src/app/target/release/app /usr/src/app/app
+COPY --from=builder /usr/src/app/target/release/$BINARY_NAME /usr/src/app/$BINARY_NAME
 
 ARG VCS_REF
 ARG BUILD_DATE
+ARG BINARY_NAME
 LABEL org.label-schema.build-date=${BUILD_DATE} \
       org.label-schema.vcs-ref=${VCS_REF} \
       org.label-schema.vcs-url="https://github.com/Sieciechu/rust-test"
 
 EXPOSE 8000
-CMD /usr/src/app/app
+ENV BINARY_NAME=${BINARY_NAME}
+CMD /usr/src/app/$BINARY_NAME 
