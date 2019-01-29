@@ -6,3 +6,4 @@ edition = "2018"
 
 [dependencies]
 add_one = { path = "../add_one"}
+rand = "*"
