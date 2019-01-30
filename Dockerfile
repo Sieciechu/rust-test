@@ -31,7 +31,8 @@ COPY --from=builder /usr/src/app/target/release/$BINARY_NAME /usr/src/app/$BINAR
 
 ARG VCS_REF
 ARG BUILD_DATE
-ARG BINARY_NAME
+ARG BINARY_NAME 
+
 LABEL org.label-schema.build-date=${BUILD_DATE} \
       org.label-schema.vcs-ref=${VCS_REF} \
       org.label-schema.vcs-url="https://github.com/Sieciechu/rust-test"
